@@ -24,26 +24,28 @@ import TextButton from '../components/TextButton';
 import FilledButton from '../components/FilledButton';
 
 const LoginScreen = ({navigation}) => {
+
+
   const [useremail, setUseremail] = useState('');
   const [userpassword, setUserpassword] = useState('');
 
   const loginUser = async () => {
+    
     const formData = {
       email: 'eve.holtreqres.in',
       password: 'cityslicka',
     };
-    useremail === "" || userpassword === ''
+    useremail === '' || userpassword === ''
       ? alert('Please Insert All Data')
       : await axios
           .post(`${BaseURL}api/login`, formData)
           .then(response => {
-            navigation.navigate('SignUpScreen')
             console.log(response.data, '===res===');
-            alert("Login Succesfull")
+            alert('Login Succesfull');
           })
           .catch(error => {
             console.log(error.response.data, '===err===');
-            alert("User Not Found")
+            alert('User Not Found');
           });
   };
 
@@ -66,16 +68,25 @@ const LoginScreen = ({navigation}) => {
           placeholder={Strings.enterpassword}
         />
         <FilledButton
-        onPress={()=>{
+          onPress={() => {
             loginUser();
-        }}
-        buttonText={Strings.login}
+          }}
+          buttonText={Strings.login}
         />
-        <TextButton 
-        onPress={()=>{
-            navigation.navigate("SignUp")
-        }}
-        mainText={Strings.noacc} buttonText={Strings.signup} />
+        <TextButton
+          onPress={() => {
+            navigation.navigate('SignUp');
+          }}
+          mainText={Strings.noacc}
+          buttonText={Strings.signup}
+        />
+
+        <TextButton
+          onPress={() => {
+            navigation.navigate('HomeScreen');
+          }}
+          buttonText={Strings.skiplogin}
+        />
       </View>
     </View>
   );
